@@ -1,3 +1,6 @@
+import sys
+
+
 def factorial(n):
     if n < 2:
         return 1
@@ -5,6 +8,11 @@ def factorial(n):
 
 
 if __name__ == '__main__':
-    print(factorial(3))
-
-
+    c = len(sys.argv)
+    if c == 2:
+        print(factorial(int(sys.argv[1])))
+    else:
+        if c == 1:
+            print("no argument!")
+        else:
+            print("too many arguments!")
