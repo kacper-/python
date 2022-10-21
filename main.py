@@ -1,6 +1,7 @@
-#!/usr/bin/python3
+#!python3
 
 import sys
+import pymongo
 
 
 def factorial(n):
