@@ -12,7 +12,7 @@ def factorial(n):
 def get_database():
  
    # Provide the mongodb atlas url to connect python to mongodb using pymongo
-   CONNECTION_STRING = "mongodb://testuser:testpass@pi/test?ssl=true"
+   CONNECTION_STRING = "mongodb://testuser:testpass@pi/test"
  
    # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
    client = MongoClient(CONNECTION_STRING)
