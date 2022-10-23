@@ -4,11 +4,6 @@ import sys
 from pymongo import MongoClient
 
 
-def factorial(n):
-    if n < 2:
-        return 1
-    return n * factorial(n-1)
-
 def get_database():
  
    # Provide the mongodb atlas url to connect python to mongodb using pymongo
@@ -22,14 +17,6 @@ def get_database():
 
 
 if __name__ == '__main__':
-    #c = len(sys.argv)
-    #if c == 2:
-    #    print(factorial(int(sys.argv[1])))
-    #else:
-    #    if c == 1:
-    #        print("no argument!")
-    #    else:
-    #        print("too many arguments!")
     
     c = get_database()
     print("database connected")
