@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 
 def get_database():
-   CONNECTION_STRING = "mongodb://testuser:testpass@pi/test"
+   CONNECTION_STRING = "mongodb://testuser:testpass@ubuntu20/test"
    client = MongoClient(CONNECTION_STRING)
    return client['test']
 
