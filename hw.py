@@ -3,6 +3,9 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 from langchain_community.llms import Ollama
+import warnings
+
+question=input("Ask:\n")
 
 ollama = Ollama(model="orca-mini:3b")
 
@@ -12,16 +15,11 @@ data = loader.load_and_split()
 oembed = OllamaEmbeddings(model="orca-mini:3b")
 vectorstore = Chroma.from_documents(documents=data, embedding=oembed)
 
-question="Does Kacper from Netherlands have cats?"
 docs = vectorstore.similarity_search(question)
 
-print()
-print("DOCS ----------------")
-print()
-print(docs)
+with warnings.catch_warnings(action="ignore"):
+    qachain=RetrievalQA.from_chain_type(ollama, retriever=vectorstore.as_retriever())
+    response=qachain({"query": question})
 
-qachain=RetrievalQA.from_chain_type(ollama, retriever=vectorstore.as_retriever())
-print()
-print()
-print(qachain({"query": question}))
+print(response['result'].strip())
 
