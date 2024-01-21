@@ -1,12 +1,27 @@
+from langchain_community.embeddings import OllamaEmbeddings
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.vectorstores import Chroma
+from langchain.chains import RetrievalQA
 from langchain_community.llms import Ollama
-from langchain_community.document_loaders import UnstructuredPDFLoader
 
-loader = UnstructuredPDFLoader("/Users/kacper/Downloads/Kacper_Marczewski.pdf", mode="elements")
-data = loader.load()
+ollama = Ollama(model="orca-mini:3b")
 
-ollama = Ollama(
-    model="phi",
-    system="you are helpful AI that gives answers as short as possible"
-    )
+loader = PyPDFLoader("/Users/kacper/Downloads/Kacper.pdf")
+data = loader.load_and_split()
 
-print(ollama.invoke("what is capital city of Poland"))
+oembed = OllamaEmbeddings(model="orca-mini:3b")
+vectorstore = Chroma.from_documents(documents=data, embedding=oembed)
+
+question="Does Kacper from Netherlands have cats?"
+docs = vectorstore.similarity_search(question)
+
+print()
+print("DOCS ----------------")
+print()
+print(docs)
+
+qachain=RetrievalQA.from_chain_type(ollama, retriever=vectorstore.as_retriever())
+print()
+print()
+print(qachain({"query": question}))
+
