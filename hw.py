@@ -6,7 +6,7 @@ data = loader.load()
 
 ollama = Ollama(
     model="phi",
-    system="you are helpful AI giving short answers"
+    system="you are helpful AI that gives answers as short as possible"
     )
 
 print(ollama.invoke("what is capital city of Poland"))
